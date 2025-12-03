@@ -11,10 +11,15 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.16",
+    "axios": "^1.13.2",
+    "http": "^0.0.1-security",
+    "jwt-decode": "^4.0.0",
     "lucide-react": "^0.552.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "tailwindcss": "^4.1.16"
+    "react-router-dom": "^7.9.6",
+    "tailwindcss": "^4.1.16",
+    "url-change-event": "^0.1.7"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",

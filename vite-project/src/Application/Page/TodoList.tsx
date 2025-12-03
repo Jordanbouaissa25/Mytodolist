@@ -1,0 +1,190 @@
+import { useEffect, useState } from "react"
+import TodoItem from "./TodoItem"
+import { Construction } from "lucide-react"
+import { NavBar } from "../../Components/Navbar"
+
+  type Priority = "Basse" | "Moyenne" |"Urgente"
+
+  type Todo = {
+  id: number
+  text: string
+  priority: Priority
+  }
+
+export const TodoList: React.FC = () => {
+  const [input, setInput] = useState<string>("")
+  const [priority, setPriority] = useState<Priority>("Moyenne")
+
+  const savedTodos = localStorage.getItem("todos")
+  const initialTodos = savedTodos ? JSON.parse(savedTodos) : []
+  const [todos, setTodos] = useState<Todo[]>(initialTodos)
+  const [filter, setFilter] = useState<Priority |"Tous">("Tous")
+
+   
+
+   
+  const [theme, setTheme] = useState<string>("light")
+//   const changeTheme=()=>{
+//     if(theme==="light"){
+//       setTheme("dark")
+//       document.documentElement.classList.add("dark")
+//     }else{
+//       setTheme("light")
+//       document.documentElement.classList.remove("dark")
+//     }
+// }
+  
+  useEffect(()=> {
+    localStorage.setItem("todos", JSON.stringify(todos))
+  }, [todos])
+
+  function addTodo() {
+    if(input.trim() == "") {
+      return
+    }
+    const newTodo: Todo = {
+       id: Date.now(),
+      text: input.trim(),
+      priority: priority
+    }
+
+    const newTodos = [newTodo, ...todos]
+    setTodos(newTodos)
+    setInput("")
+    setPriority("Moyenne")
+    console.log(newTodos)
+  }
+  
+  let filteredTodos: Todo [] = []
+
+  if (filter === "Tous"){
+    filteredTodos = todos
+  } else {
+    filteredTodos = todos.filter((todo) => todo.priority === filter)
+  }
+
+  const urgentCount = todos.filter((t) => t.priority === "Urgente").length
+  const mediumCount = todos.filter((t) => t.priority === "Moyenne").length
+  const lowCount = todos.filter((t) => t.priority === "Basse").length
+  const totalCount = todos.length
+
+  function deleteTodo(id: number) {
+    const newTodos = todos.filter((todo) => todo.id !== id)
+    setTodos(newTodos)
+  }
+
+  const [selectedTodos, setSelectedTodos ] = useState<Set<Number>>(new Set())
+
+  function toggleSelectTodo(id : number) {
+    const newSelected = new Set(selectedTodos)
+    if(newSelected.has(id)) {
+      newSelected.delete(id)
+    } else {
+      newSelected.add(id)
+    }
+    setSelectedTodos(newSelected)
+  }
+
+  function finishSelected () {
+  const newTodos = todos.filter((todo) => {
+    if(selectedTodos.has(todo.id)){
+      return false
+    } else {
+      return true
+    }
+  })
+
+  setTodos(newTodos)
+  setSelectedTodos(new Set())
+  }
+
+  return (
+    
+    <div className="flex justify-center">
+      
+      <NavBar/>
+      <div className="w-2/3 flex flex-col gap-4 my-15 bg-base-300 p-5 rounded-2xl">
+       {/* <label className="toggle text-base-content fixed right-5 ">
+    <input type="checkbox" value={theme} onChange={(e) => setTheme(e.target.value)} className="theme-controller" />
+
+    <svg aria-label="sun" 
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></g></svg>
+
+    <svg aria-label="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></g></svg>
+
+</label> */}
+        <div className="flex gap-4">
+          <input 
+          type="text"
+          className="input w-full"
+          placeholder="Ajouter une tâche..."
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          />
+          <select className="select w-full"
+          value={priority}
+          onChange={(e) => setPriority(e.target.value as Priority)}
+          >
+            <option value="Urgente">Urgente</option>
+            <option value="Moyenne">Moyenne</option>
+            <option value="Basse">Basse</option>
+          </select>
+          <button onClick={addTodo} className="btn btn-primary">
+            Ajouter
+          </button>
+        </div>
+          <div className="space-y-2 flex-1 h-fit">
+           <div className="flex items-center justify-between">
+             <div className="flex flex-wrap gap-4">
+              <button className={`btn btn-soft ${filter === "Tous" ? "btn-primary" : ""}`}
+               onClick={() => setFilter("Tous")}
+               >Tous ({totalCount})</button>
+               <button className={`btn btn-soft ${filter === "Urgente" ? "btn-primary" : ""}`}
+               onClick={() => setFilter("Urgente")}
+               >
+                Urgente ({urgentCount})
+               </button>
+               <button className={`btn btn-soft ${filter === "Moyenne" ? "btn-primary" : ""}`}
+               onClick={() => setFilter("Moyenne")}
+               >
+                Moyenne ({mediumCount})
+               </button>
+               <button className={`btn btn-soft ${filter === "Basse" ? "btn-primary" : ""}`}
+               onClick={() => setFilter("Basse")}
+               >Basse ({lowCount})</button>
+            </div>
+               
+               <button className="btn btn-primary"
+               onClick={finishSelected}
+               disabled= {selectedTodos.size == 0}>
+                Finir la selection ({selectedTodos.size})
+               </button>
+           </div>
+      
+            {filteredTodos.length > 0 ? (
+              <ul className="divide-y divide-primary/20">
+                {filteredTodos.flatMap((todo) => (
+                 <li key={todo.id}>
+                  <TodoItem
+                   todo={todo}
+                   isSelected={selectedTodos.has(todo.id)}
+                   onDelete={() => deleteTodo(todo.id)}
+                   onToggleSelect={toggleSelectTodo}/>
+                 </li>
+                ))}
+              </ul>
+            ) : (
+              <div className="flex justify-center items-center flex-col p-5">
+                <div>
+                  <Construction strokeWidth={1} className="w-40 h-40 text-primary"/>
+                </div>
+                <p className="text-sm">Aucune tâche pour ce filtre</p>
+              </div>
+            )}
+          </div>
+      </div>
+    </div>
+  )
+}
+
+export default TodoList
