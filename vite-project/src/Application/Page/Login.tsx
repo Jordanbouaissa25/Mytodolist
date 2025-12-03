@@ -56,69 +56,33 @@ async function connexion(username: string, password: string) {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-[#2D2C5A] text-white"> 
-      <div className="flex flex-col items-center justify-center w-full">
-        <form onSubmit={(e)=>{e.preventDefault();connexion(email, password)}} className="p-5 rounded-lg w-[300px] text-center">
-          <h2 className="mb-6 text-2xl font-semibold">Se connecter</h2>
-          
-          <p className="text-red-500 mb-4">{error}</p>
-
-          <div className="relative right-20">
-            <label htmlFor="mail" className="mb-2 text-md">Adresse mail</label>
-          </div>
-          <div className="mb-5">
-            <input 
-              type="email" 
-              value={email} 
-              onChange={handleEmailChange} 
-              placeholder="Adresse mail" 
-              className="w-full p-2.5 rounded border border-gray-300 text-black bg-white"
-              required 
-            />
-          </div>
-          <div className="relative right-20">
-            <label htmlFor="password">Mot de passe</label>
-          </div>
-          <div className="mb-5">
-            <input 
-              type="password" 
-              value={password} 
-              onChange={handlePasswordChange} 
-              placeholder="**************" 
-              className="w-full p-2.5 rounded border border-gray-300 text-black bg-white"
-              required 
-            />
-          </div>
-
-          <div className="flex justify-center items-center mb-10">
-            <label className="text-sm">
-              <input 
-                type="checkbox" 
-                checked={rememberMe}
-                onChange={handleRememberMeChange} 
-                className="mr-2"
-              /> 
-              Se souvenir de moi
-            </label>
-          </div>
-          <button type="submit" className="w-full p-2.5 bg-[#f8c700] rounded text-[#2D2C5A] text-lg mb-5 cursor-pointer">
-            Connectez-vous
-          </button>
-          <div className="my-4">
-            <div className="relative w-full h-1 bg-[#007bff] mb-6"> 
-              <div className="absolute left-0 h-1 bg-[#f8c700]" style={{ width: "50%" }} ></div>
-          </div>
-          </div>
-          <p className="p-3">Vous n'avez pas de compte ?</p>
-          <div className="flex justify-between mb-3 text-sm">
-            <button onClick={() => navigate("/register")} className="w-full p-2.5 bg-[#007bff] mt-0 rounded text-[#000000] text-lg cursor-pointer">
-              Créer mon compte
-            </button>
-          </div>
-        </form>
-            <NavLink to="/reset" className="text-[#007bff] ml-4 text-lg">Mot de passe oublié ?</NavLink>
+    <div className="hero bg-base-200 min-h-screen">
+  <div className="hero-content flex-col lg:flex-row-reverse">
+    <form onSubmit={(e)=>{e.preventDefault();connexion(email, password)}}>
+    <div className="text-center lg:text-left">
+      <h1 className="text-5xl font-bold"> CONNECTE TOI MAINTENANT !</h1>
+      <p className="py-6">
+        Accède à ta TodoList personnelle et ne rate plus aucune de tes tâches importantes !
+      </p>
+    </div>
+    <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+      <div className="card-body">
+        <fieldset className="fieldset">
+          <label className="label">Email</label>
+          <input type="email"  value={email} 
+              onChange={handleEmailChange}  className="input" placeholder="Email" />
+          <label className="label">Password</label>
+          <input type="password" value={password} 
+              onChange={handlePasswordChange}  className="input" placeholder="*********" />
+          <div><a className="link link-hover">Mot de passe oublié ?</a></div>
+           <div><a onClick={() => navigate("/Register")} className="link link-hover">S'inscrire</a></div>
+          <button onClick={() => navigate("/")} className="btn btn-neutral mt-4">Login</button>
+        </fieldset>
       </div>
     </div>
-  );
+    </form>
+  </div>
+</div>
+  )
 };
 
