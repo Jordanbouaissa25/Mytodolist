@@ -23,7 +23,7 @@ export const TodoList: React.FC = () => {
    
 
    
-  const [theme, setTheme] = useState<string>("light")
+  // const [theme, setTheme] = useState<string>("light")
 //   const changeTheme=()=>{
 //     if(theme==="light"){
 //       setTheme("dark")

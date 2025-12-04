@@ -23,6 +23,12 @@ export const Login: React.FC = () => {
 
 
 async function connexion(username: string, password: string) {
+
+  if (password.length < 8) {
+    setError("Le mot de passe doit contenir au moins 8 caractères.");
+    return;
+  }
+
   try {
     const response = await http.post("/login", { username, password });
     
@@ -33,11 +39,11 @@ async function connexion(username: string, password: string) {
       
       localStorage.setItem("token", token);
       localStorage.setItem("userId", _id);
-      navigate("/search"); // Rediriger l'utilisateur après une connexion réussie
+      navigate("/"); // Rediriger l'utilisateur après une connexion réussie
     } else {
     }
   } catch (error) {
-    setError("Addresse mail ou mot de passe incorrecte")
+    setError("Adresse mail ou mot de passe incorrecte")
     console.error("Erreur lors de la connexion:", error);
     // Afficher un message d'erreur à l'utilisateur si nécessaire
   }
@@ -76,7 +82,8 @@ async function connexion(username: string, password: string) {
               onChange={handlePasswordChange}  className="input" placeholder="*********" />
           <div><a className="link link-hover">Mot de passe oublié ?</a></div>
            <div><a onClick={() => navigate("/Register")} className="link link-hover">S'inscrire</a></div>
-          <button onClick={() => navigate("/")} className="btn btn-neutral mt-4">Login</button>
+          <button type="submit" className="btn btn-neutral mt-4">Login</button>
+            <p className="text-red-500 mb-4">{error}</p>
         </fieldset>
       </div>
     </div>

@@ -26,7 +26,7 @@ export const Register: React.FC = () => {
 
         localStorage.setItem("token", token);
         localStorage.setItem("userId", _id);
-        navigate("/"); // Rediriger l'utilisateur après une inscription réussie
+        navigate("/Login"); // Rediriger l'utilisateur après une inscription réussie
       } else {
         setError("Impossible de s'inscrire.");
       }
@@ -37,50 +37,63 @@ export const Register: React.FC = () => {
   }
 
   return (
-    <div className="hero bg-base-200 min-h-screen">
-         <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          inscription(email, password, confirmPassword);
-        }}
-        className="p-6 rounded-lg w-[300px] text-center"
-      ></form>
-  <div className="hero-content flex-col lg:flex-row-reverse">
-    
-    <div className="text-center lg:text-left">
-      <h1 className="text-5xl font-bold">S'INSCRIRE MAINTENANT</h1>
-      <p className="py-6">
-        Bénéficier de ma TodoList pour vous souvenir de toutes vos tâches importantes !
-      </p>
-    </div>
-    <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-      <div className="card-body">
-        <fieldset className="fieldset">
-          <label className="label">Email</label>
-          <input type="email"    value={email}
-            onChange={(e) => setEmail(e.target.value)}  className="input" placeholder="Email" required />
-          <label className="label">Password</label>
-          <input type="password"  value={password}
-            onChange={(e) => setPassword(e.target.value)} className="input" placeholder="*********" />
-            <label className="label">Confirm Password</label>
-            <input type="Confirmpassword" value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)} className="input" placeholder="*********" />
-          <div><a className="link link-hover">Mot de passe oublié ?</a></div>
-           <div><a onClick={() => navigate("/Register")} className="link link-hover">S'inscrire</a></div>
-           <fieldset className="fieldset bg-base-100 border-base-300 rounded-box w-64 border p-4">
-  <legend className="fieldset-legend">Register options</legend>
-  <label className="label">
-    <input type="checkbox" required defaultChecked className="checkbox" />
-    J'accepte les termes et conditions
-  </label>
-</fieldset>
-          {/* <button className="btn btn-neutral mt-4">S'inscrire</button> */}
-          <button onClick={() => navigate("/Login")} className="btn btn-neutral mt-4" > S'inscrire </button>
+    <form
+  onSubmit={(e) => {
+    e.preventDefault();
+    inscription(email, password, confirmPassword);
+  }}
+  className="p-6 rounded-lg w-[300px] text-center"
+>
+  <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+    <div className="card-body">
+      <fieldset className="fieldset">
+        <label className="label">Email</label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="input"
+          placeholder="Email"
+          required
+        />
+
+        <label className="label">Password</label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="input"
+          placeholder="*********"
+          required
+        />
+
+        <label className="label">Confirm Password</label>
+        <input
+          type="password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          className="input"
+          placeholder="*********"
+          required
+        />
+          <p className="text-red-500 mb-4">{error}</p>
+
+        <fieldset className="fieldset bg-base-100 border-base-300 rounded-box w-64 border p-4">
+          <legend className="fieldset-legend">Register options</legend>
+          <label className="label">
+            <input type="checkbox" required className="checkbox" />
+            J'accepte les termes et conditions
+          </label>
         </fieldset>
-      </div>
+
+        <button type="submit" className="btn btn-neutral mt-4">
+          S'inscrire
+        </button>
+        <button  onClick={() => navigate("/Login")} className="btn btn-neutral mt-4">Login</button>
+      </fieldset>
     </div>
   </div>
-</div>
+</form>
   )
 };
 
