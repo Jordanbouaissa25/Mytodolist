@@ -37,63 +37,70 @@ export const Register: React.FC = () => {
   }
 
   return (
+  <div className="min-h-screen flex items-center justify-center">
     <form
-  onSubmit={(e) => {
-    e.preventDefault();
-    inscription(email, password, confirmPassword);
-  }}
-  className="p-6 rounded-lg w-[300px] text-center"
->
-  <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-    <div className="card-body">
-      <fieldset className="fieldset">
-        <label className="label">Email</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="input"
-          placeholder="Email"
-          required
-        />
+      onSubmit={(e) => {
+        e.preventDefault();
+        inscription(email, password, confirmPassword);
+      }}
+      className="p-6 rounded-lg w-[300px] text-center"
+    >
+      <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+        <div className="card-body">
+          <fieldset className="fieldset">
+            <label className="label">Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="input"
+              placeholder="Email"
+              required
+            />
 
-        <label className="label">Password</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="input"
-          placeholder="*********"
-          required
-        />
+            <label className="label">Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="input"
+              placeholder="*********"
+              required
+            />
 
-        <label className="label">Confirm Password</label>
-        <input
-          type="password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          className="input"
-          placeholder="*********"
-          required
-        />
-          <p className="text-red-500 mb-4">{error}</p>
+            <label className="label">Confirm Password</label>
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="input"
+              placeholder="*********"
+              required
+            />
 
-        <fieldset className="fieldset bg-base-100 border-base-300 rounded-box w-64 border p-4">
-          <legend className="fieldset-legend">Register options</legend>
-          <label className="label">
-            <input type="checkbox" required className="checkbox" />
-            J'accepte les termes et conditions
-          </label>
-        </fieldset>
+            <p className="text-red-500 mb-4">{error}</p>
 
-        <button type="submit" className="btn btn-neutral mt-4">
-          S'inscrire
-        </button>
-        <button  onClick={() => navigate("/Login")} className="btn btn-neutral mt-4">Login</button>
-      </fieldset>
-    </div>
+            <fieldset className="fieldset bg-base-100 border-base-300 rounded-box w-64 border p-4">
+              <legend className="fieldset-legend">Register options</legend>
+              <label className="label">
+                <input type="checkbox" required className="checkbox" />
+                J'accepte les termes et conditions
+              </label>
+            </fieldset>
+
+            <button type="submit" className="btn btn-neutral mt-4">
+              S'inscrire
+            </button>
+            <button
+              onClick={() => navigate("/Login")}
+              type="button"
+              className="btn btn-neutral mt-4"
+            >
+              Login
+            </button>
+          </fieldset>
+        </div>
+      </div>
+    </form>
   </div>
-</form>
-  )
-};
-
+  )}

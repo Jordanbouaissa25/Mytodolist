@@ -1,17 +1,18 @@
 import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
+// import { useState, useEffect } from 'react';
 
 
 export const NavBar = () => {
 
-    const [theme, setTheme] = useState<string>("light")
+    // const [theme, setTheme] = useState<string>("light")
+
   return (
 <div className="navbar bg-base-100 shadow-sm fixed top-0 z-10">
   <div className="flex-1">
     <a className="btn btn-ghost text-xl">TodoList</a>
   </div>
   <div className="flex-none">
-    <label className="toggle text-base-content right-2">
+    {/* <label className="toggle text-base-content right-2">
     <input type="checkbox" value={theme} onChange={(e) => setTheme(e.target.value)} className="theme-controller" />
 
     <svg aria-label="sun" 
@@ -19,7 +20,7 @@ export const NavBar = () => {
 
     <svg aria-label="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></g></svg>
 
-    </label>
+    </label> */}
     <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
