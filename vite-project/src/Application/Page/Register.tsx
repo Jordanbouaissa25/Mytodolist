@@ -88,13 +88,13 @@ export const Register: React.FC = () => {
               </label>
             </fieldset>
 
-            <button type="submit" className="btn btn-neutral mt-4">
+            <button type="submit" className="btn btn-active btn-warning">
               S'inscrire
             </button>
             <button
               onClick={() => navigate("/Login")}
               type="button"
-              className="btn btn-neutral mt-4"
+              className="btn btn-active btn-info"
             >
               Login
             </button>
